@@ -46,88 +46,91 @@ template<typename T>
 class TriangleT
 {
 public:
-	TriangleT( const ci::Vec2<T>& origin = ci::Vec2<T>::zero(), const ci::Vec2<T>& destination = ci::Vec2<T>::zero(), 
-			  const ci::Vec2<T>& apex = ci::Vec2<T>::zero() );
+    typedef glm::detail::tvec2<T, glm::defaultp> Vec2T;
+    typedef glm::detail::tvec3<T, glm::defaultp> Vec3T;
+    
+	TriangleT( const Vec2T& origin = Vec2T(0), const Vec2T& destination = Vec2T(0),
+			  const Vec2T& apex = Vec2T(0) );
 	static TriangleT<T>	one();
 	static TriangleT<T>	zero();
 
-	TriangleT<T>		operator+( const ci::Vec2<T>& rhs );
+	TriangleT<T>		operator+( const Vec2T& rhs );
 	TriangleT<T>		operator+( const TriangleT<T>& rhs );
-	void				operator+=( const ci::Vec2<T>& rhs );
+	void				operator+=( const Vec2T& rhs );
 	void				operator+=( const TriangleT<T>& rhs );
 	
-	TriangleT<T>		operator-( const ci::Vec2<T>& rhs );
+	TriangleT<T>		operator-( const Vec2T& rhs );
 	TriangleT<T>		operator-( const TriangleT<T>& rhs );
-	void				operator-=( const ci::Vec2<T>& rhs );
+	void				operator-=( const Vec2T& rhs );
 	void				operator-=( const TriangleT<T>& rhs );
 	
 	TriangleT<T>		operator*( const T& rhs );
-	TriangleT<T>		operator*( const ci::Vec2<T>& rhs );
+	TriangleT<T>		operator*( const Vec2T& rhs );
 	TriangleT<T>		operator*( const TriangleT<T>& rhs );
 	void				operator*=( const T& rhs );
-	void				operator*=( const ci::Vec2<T>& rhs );
+	void				operator*=( const Vec2T& rhs );
 	void				operator*=( const TriangleT<T>& rhs );
 	
 	TriangleT<T>		operator/( const T& rhs );
-	TriangleT<T>		operator/( const ci::Vec2<T>& rhs );
+	TriangleT<T>		operator/( const Vec2T& rhs );
 	TriangleT<T>		operator/( const TriangleT<T>& rhs );
 	void				operator/=( const T& rhs );
-	void				operator/=( const ci::Vec2<T>& rhs );
+	void				operator/=( const Vec2T& rhs );
 	void				operator/=( const TriangleT<T>& rhs );
 
 	bool				operator==( const TriangleT<T>& rhs );
 	bool				operator!=( const TriangleT<T>& rhs );
 	bool				operator<( const TriangleT<T>& rhs );
 
-    T					calcAngle( const ci::Vec2<T>& point ) const;
+    T					calcAngle( const Vec2T& point ) const;
 	T					calcArea() const;
-    ci::Vec2<T>			calcBarycentricToCartesian( const ci::Vec3<T>& point ) const;
+    Vec2T               calcBarycentricToCartesian( const Vec3T& point ) const;
 	ci::RectT<T>        calcBoundingBox() const;
-    ci::Vec3<T>			calcCartesianToBarycentric( const ci::Vec2<T>& point ) const;
-	ci::Vec2<T>			calcCartesianToPolar( const ci::Vec2<T>& point ) const;
-	ci::Vec2<T>         calcCentroid() const;
+    Vec3T               calcCartesianToBarycentric( const Vec2T& point ) const;
+	Vec2T               calcCartesianToPolar( const Vec2T& point ) const;
+	Vec2T               calcCentroid() const;
 	T					calcHeight() const;
-	ci::Vec2<T>			calcPolarToCartesian( const ci::Vec2<T>& point ) const;
-	const ci::Vec2<T>	calcSize() const;
+	Vec2T               calcPolarToCartesian( const Vec2T& point ) const;
+	const Vec2T         calcSize() const;
 	T					calcWidth() const;
 
-	ci::Vec2<T>&		a();
-	const ci::Vec2<T>&	a() const;
-	ci::Vec2<T>&		b();
-	const ci::Vec2<T>&	b() const;
-	ci::Vec2<T>&		c();
-	const ci::Vec2<T>&	c() const;
-	ci::Vec2<T>&		getApex();
-	const ci::Vec2<T>&	getApex() const;
-	ci::Vec2<T>&		getDestination();
-	const ci::Vec2<T>&	getDestination() const;
-	ci::Vec2<T>&		getOrigin();
-	const ci::Vec2<T>&	getOrigin() const;
+	Vec2T&              a();
+	const Vec2T&        a() const;
+	Vec2T&              b();
+	const Vec2T&        b() const;
+	Vec2T&              c();
+	const Vec2T&        c() const;
+	Vec2T&              getApex();
+	const Vec2T&        getApex() const;
+	Vec2T&              getDestination();
+	const Vec2T&        getDestination() const;
+	Vec2T&              getOrigin();
+	const Vec2T&        getOrigin() const;
 
-	ci::Vec2<T>			closestPoint( const ci::Vec2<T>& point ) const;
-	bool				contains( const ci::Vec2<T>& point ) const;
-	T					distance( const ci::Vec2<T>& point ) const;
-	T					distanceSquared( const ci::Vec2<T>& point ) const;
+	Vec2T               closestPoint( const Vec2T& point ) const;
+	bool				contains( const Vec2T& point ) const;
+	T					distance( const Vec2T& point ) const;
+	T					distanceSquared( const Vec2T& point ) const;
 	bool				intersects( const TriangleT<T>& triangle ) const;
-	bool				intersection( const ci::Vec2<T>& point, ci::Vec2<T>* intersection ) const;
+	bool				intersection( const Vec2T& point, Vec2T* intersection ) const;
 
-	void				a( const ci::Vec2<T>& origin );
-	void				b( const ci::Vec2<T>& destination );
-	void				c( const ci::Vec2<T>& apex );
-	void				set( const ci::Vec2<T>& origin, const ci::Vec2<T>& destination, const ci::Vec2<T>& apex );
-	void				setApex( const ci::Vec2<T>& apex );
-	void				setDestination( const ci::Vec2<T>& destination );
-	void				setOrigin( const ci::Vec2<T>& origin );
+	void				a( const Vec2T& origin );
+	void				b( const Vec2T& destination );
+	void				c( const Vec2T& apex );
+	void				set( const Vec2T& origin, const Vec2T& destination, const Vec2T& apex );
+	void				setApex( const Vec2T& apex );
+	void				setDestination( const Vec2T& destination );
+	void				setOrigin( const Vec2T& origin );
 	
     TriangleT<T>		getCentered() const;
     TriangleT<T>		getCenteredFit( const TriangleT<T>& triangle ) const;
-	void				include( const ci::Vec2<T>& point );
-	void				include( const std::vector<ci::Vec2<T> >& points );
+	void				include( const Vec2T& point );
+	void				include( const std::vector<Vec2T >& points );
 	void				include( const TriangleT& triangle );
-	void				inflate( const ci::Vec2<T>& scale );
-    TriangleT<T>		inflated( const ci::Vec2<T>& scale ) const;
-	void				offset( const ci::Vec2<T>& position );
-	void				offsetCenterTo( const ci::Vec2<T>& offset );
+	void				inflate( const Vec2T& scale );
+    TriangleT<T>		inflated( const Vec2T& scale ) const;
+	void				offset( const Vec2T& position );
+	void				offsetCenterTo( const Vec2T& offset );
 	void				rotate( T radians );
     TriangleT<T>		rotated( T radians ) const;
 	void				scale( T scale );
@@ -136,33 +139,33 @@ public:
 	TriangleT<T>		scaledCentered( T scale ) const;
     TriangleT<T>		transformCopy( const ci::MatrixAffine2<T>& matrix ) const;
 
-	static T			calcAngle( const TriangleT<T>& triangle, const ci::Vec2<T>& point );
-	static T			calcAngle( const ci::Vec2<T>& a, const ci::Vec2<T>& b );
+	static T			calcAngle( const TriangleT<T>& triangle, const Vec2T& point );
+	static T			calcAngle( const Vec2T& a, const Vec2T& b );
 	static T			calcArea( const TriangleT<T>& triangle );
-	static T			calcArea( const ci::Vec2<T>& a, const ci::Vec2<T>& b, const ci::Vec2<T>& c );
-    static ci::Vec2<T>	calcBarycentricToCartesian( const TriangleT<T>& triangle, const ci::Vec3<T>& point );
+	static T			calcArea( const Vec2T& a, const Vec2T& b, const Vec2T& c );
+    static Vec2T        calcBarycentricToCartesian( const TriangleT<T>& triangle, const Vec3T& point );
 	static ci::RectT<T>	calcBoundingBox( const TriangleT<T>& triangle );
-    static ci::Vec3<T>	calcCartesianToBarycentric( const TriangleT<T>& triangle, const ci::Vec2<T>& point );
-	static ci::Vec2<T>	calcCartesianToPolar( const ci::Vec2<T>& a, const ci::Vec2<T>& b );
-	static ci::Vec2<T>	calcCentroid( const TriangleT<T>& triangle );
-	static ci::Vec2<T>	calcPolarToCartesian( const ci::Vec2<T>& a, const ci::Vec2<T>& b );
-	static ci::Vec2<T>	closestPoint( const TriangleT<T>& triangle, const ci::Vec2<T>& p, int32_t n = 0 );
-	static bool			contains( const TriangleT<T>& triangle, const ci::Vec2<T>& p );
-	static T			distance( const TriangleT<T>& triangle, const ci::Vec2<T>& p );
-	static T			distanceSquared( const TriangleT<T>& triangle, const ci::Vec2<T>& p );
+    static Vec3T        calcCartesianToBarycentric( const TriangleT<T>& triangle, const Vec2T& point );
+	static Vec2T        calcCartesianToPolar( const Vec2T& a, const Vec2T& b );
+	static Vec2T        calcCentroid( const TriangleT<T>& triangle );
+	static Vec2T        calcPolarToCartesian( const Vec2T& a, const Vec2T& b );
+	static Vec2T        closestPoint( const TriangleT<T>& triangle, const Vec2T& p, int32_t n = 0 );
+	static bool			contains( const TriangleT<T>& triangle, const Vec2T& p );
+	static T			distance( const TriangleT<T>& triangle, const Vec2T& p );
+	static T			distanceSquared( const TriangleT<T>& triangle, const Vec2T& p );
 	static TriangleT<T>	getCentered( const TriangleT<T>& triangle );
 	static TriangleT<T>	getCenteredFit( const TriangleT<T>& a, const TriangleT<T>& b );
-    static TriangleT<T>	inflated( const TriangleT<T>& triangle, const ci::Vec2<T>& scale );
-	static bool			intersection( const TriangleT<T>& triangle, const ci::Vec2<T>& p, ci::Vec2<T>* intersection );
+    static TriangleT<T>	inflated( const TriangleT<T>& triangle, const Vec2T& scale );
+	static bool			intersection( const TriangleT<T>& triangle, const Vec2T& p, Vec2T* intersection );
 	static bool			intersects( const TriangleT<T>& a, const TriangleT<T>& b );
     static TriangleT<T>	rotated( const TriangleT<T>& triangle, T radians );
     static TriangleT<T>	scaled( const TriangleT<T>& triangle, T scale );
     static TriangleT<T>	scaledCentered( const TriangleT<T>& triangle, T scale );
     static TriangleT<T>	transformCopy( const TriangleT<T>& triangle, const ci::MatrixAffine2<T>& matrix );
 protected:
-	ci::Vec2<T>			mApex;			// C
-	ci::Vec2<T>			mDestination;	// B
-	ci::Vec2<T>			mOrigin;		// A
+	Vec2T               mApex;			// C
+	Vec2T               mDestination;	// B
+	Vec2T               mOrigin;		// A
 
 	friend				std::ostream& operator<<( std::ostream& out, const TriangleT<T>& triangle );
 
@@ -171,13 +174,13 @@ protected:
 	class PointSort
 	{
 	public:
-		PointSort( const ci::Vec2<T>& point = ci::Vec2<T>::zero(), T distance = (T)0.0 );
+		PointSort( const Vec2T& point = Vec2T::zero(), T distance = (T)0.0 );
 		bool			operator<( const PointSort& rhs ) const;
 		bool			operator==( const PointSort& rhs ) const;
 		bool			operator!=( const PointSort& rhs ) const;
 	private:
 		T				mDistance;
-		ci::Vec2<T>		mPoint;
+		Vec2T           mPoint;
 		friend class	TriangleT<T>;
 	};
 };

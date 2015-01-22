@@ -36,10 +36,11 @@
 
 #pragma once
 
+#include "cinder/gl/gl.h"
 #include "cinder/Rect.h"
 
 namespace cinder {
-template<typename T> class MatrixAffine2;
+    template<typename T> class MatrixAffine2;
 }
 
 template<typename T>

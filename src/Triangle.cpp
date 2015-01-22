@@ -464,16 +464,21 @@ bool TriangleT<T>::contains( const TriangleT<T> &triangle, const Vec2T &p )
 	Vec2T b = triangle.mDestination;
 	Vec2T c = triangle.mApex;
 	
+    // Get area values using input position and two points from triangle
 	T area  = calcArea( a, b, c );
 	T area0 = calcArea( b, c, p );
 	T area1 = calcArea( c, a, p );
 	T area2 = calcArea( a, b, p );
 	
+    // Sum the absolute values of each area
 	T areaSum = math<T>::abs( area0 ) + math<T>::abs( area1 ) + math<T>::abs( area2 );
 	
-	// If sum of the three areas is the same as the triangle's
-	// area, the point is inside
-	return areaSum == area;
+    // If sum of the three areas is the same as the triangle's
+    // area, the point is inside
+    // Stephens original code:
+    //return areaSum == area;
+    
+    return areaSum == math<T>::abs( area );
 }
 
 template<typename T> 
@@ -907,8 +912,6 @@ bool TriangleT<T>::PointSort::operator!=( const PointSort &rhs ) const
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
-#include "cinder/gl/gl.h"
 
 namespace cinder { namespace gl {
 
